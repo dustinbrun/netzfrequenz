@@ -1,5 +1,16 @@
 # Bestimmung der Netzfrequenz mittels Arduino
 
+Dies ist eine bearbeitete Version von https://github.com/ratopi/netzfrequenz
+
+Neue Funtionen:
+- Möglichkeit zum Aufzeichen von Daten auf eine SD Karte 
+- Debug LED, sodass auch ohne Seriellen Monitor erkannt werden kann, ob die SD Karte korrekt erkannt wird (leuchtet dauerhaft bei Fehler)
+- Minimum/Maximum Grenze, damit offensichtich falsche Werte nicht aufgezeichnet werden
+
+Die SD Karten Steuerung wurde inspiriert von dem Artikel "Guide to SD Card Module with Arduino" gefunden auf der Seite randomnerdtutorials.com (https://randomnerdtutorials.com/guide-to-sd-card-module-with-arduino/).
+
+--- Orginaltext ---
+
 Dieser kleine Sketch zeigt wie man mittels einer einfachen kurzen Antenne
 an einem Analog-Port des Arduinos die aktuelle Netzfrequenz des Stromnetzes
 messen kann.
@@ -49,3 +60,4 @@ Ich kann mir momentan folgende Ursachen hierfür denken:
 Viel Spaß
 
 ratopi
+dustinbrun
