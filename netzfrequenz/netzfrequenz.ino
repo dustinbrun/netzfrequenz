@@ -9,24 +9,25 @@
 #include <SPI.h>
 #include <SD.h>
 
-#define PROBE_COUNT 50
+//#define PROBE_COUNT 50  // 1 Second Average
+#define PROBE_COUNT 500 // 10 Second Average
 #define MICROS 1000000.
-#define KORREKTUR 1.001341341
+//#define KORREKTUR 1.001341341
 //#define KORREKTUR 1.
+#define KORREKTUR 1.00071474
 
 #define DEBUG 0
 #define use_sd 1  // Set to 0 to disable SD
-int interval = 50; // Interval to Read the Data
 
 //Pins
 const int chipSelect = 10;
-const int analog_in = A0;
+const int analog_in = A1;
 const int debugled = 2;
 
-int min, max, val, i, j;
+int min, max, val, i;
 float freq;
 
-long start, end;
+unsigned long start, end;
 
 File data_file;
 
@@ -61,6 +62,7 @@ void setup()
 void loop()
 {
   start = end;
+  start = micros();
   min = 1024;
   max = 0;
   for (i = 0; i < PROBE_COUNT; i++)
@@ -77,6 +79,7 @@ void loop()
 
   if (freq > 45.00 && freq < 55.00)
   {
+    Serial.println(freq, 4);
     if (use_sd)
     {
       data_file = SD.open("data.txt", FILE_WRITE);
@@ -85,18 +88,16 @@ void loop()
         digitalWrite(debugled, HIGH);
         data_file.println(freq, 4);
         data_file.close();
-        delay(50);
         digitalWrite(debugled, LOW);
       }
       else
         Serial.println("SD Card error!");
     }
-    Serial.println(freq,4);
+
   }
   else
     Serial.println("Ausserhalb der Toleranz");
 
-  delay(interval);
 }
 
 void period()
